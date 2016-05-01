@@ -1,0 +1,73 @@
+<ion-view title="PixelEsp" >
+<ion-nav-buttons>
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+
+<div class="tabs-striped tabs-top tabs-background-balanced tabs-color-light" ng-init="tab = 1" ng-controller="PanelController as panel">
+    <div class="tabs">
+      <a ng-class="{ active:tab === 1 }" class="tab-item" href ng-click="panel.selectTab(1)">
+    NUEVOS       
+      </a>
+      <a ng-class="{ active:tab === 2 }" class="tab-item" href ng-click="panel.selectTab(2)">
+        SEMANALES
+      </a>
+      <a ng-class="{ active:tab === 3 }" class="tab-item" href ng-click="panel.selectTab(3)">
+        MEJORES
+      </a>
+    </div>
+  </div>
+
+
+
+      <ion-content class="has-subheader">
+
+
+       <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="Query" >
+      </label>
+    </div> 
+
+
+
+<section class="tab" ng-controller="TabController as tab">
+  <ul class="nav nav-pills">
+    <li ng-class="{ active: tab.isSet(1) }">
+      <a href ng-click="tab.setTab(1)">Description</a></li>
+    <li ng-class="{ active: tab.isSet(2) }">
+      <a href ng-click="tab.setTab(2)">Specs</a></li>
+    <li ng-class="{ active: tab.isSet(3) }">
+      <a href ng-click="tab.setTab(3)">Reviews</a></li>
+  </ul>
+  <div ng-show="tab.isSet(1)">
+    <h4>Description</h4>
+    <blockquote>asdasd</blockquote>
+  </div>
+  <div ng-show="tab.isSet(2)">
+    <h4>Specs</h4>
+    <blockquote>asdasd</blockquote>
+  </div>
+  <div ng-show="tab.isSet(3)">
+    <h4>Reviews</h4>
+  </div>
+</section>
+
+        
+        </ion-content>
+      
+    </ion-view>
+  </body>
+</html>
+    
+        <script src="js/index.js"></script>
+
+    
+    
+    
+  </body>
+</html>

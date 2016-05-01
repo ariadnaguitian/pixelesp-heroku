@@ -1,0 +1,70 @@
+<ion-view title="Comunidad">
+ <ion-nav-buttons >
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <!-- ======================
+  END LEFT SIDE BUTTON
+  ====================== -->
+
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+    <ion-nav-buttons side="right">
+<a href="#/app/crearnoticia" target="_self" button class="button button-icon icon ion-chatbox"><div class="badge badge-assertive">5</div></button></a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-search"></button>
+  </ion-nav-buttons>
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+  
+  <!-- ======================
+  MAIN CONTENT SECTION
+  ====================== -->
+  <ion-content class="has-header gem-ion-content">
+    <!-- Standard Ionic Markup for search -->
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="Query" >
+      </label>
+    </div>    
+    <!-- End Search box-->
+
+  
+
+
+    
+
+    <ul class="list gem-friend-list">
+          <!-- Single Friend Item -->
+          <li class="item">
+
+
+    <ion-list>
+      <ion-item ng-repeat="usuario in usuarios | filter:Query" href="#/app/comunidad/{{usuario.id}}">
+      
+          <!-- Single Friend Item -->
+          
+            <!-- thumb image (round) -->
+            <img src="img/avatar/{{usuario.imagen}}" alt="" class="gem-friend-list-profile-pic"> 
+
+<div class="gem-friend-list-text">
+              <b>{{usuario.name}} </b>
+              <span class="signature">{{usuario.email}}  </span>
+                   <span class="signature"> {{usuario.city}} - {{usuario.country}} </span>
+            </div>
+
+      </ion-item>
+    </ion-list>
+
+    </li>
+    </ul>
+    
+  
+ 
+
+
+  </ion-content>
+</ion-view>

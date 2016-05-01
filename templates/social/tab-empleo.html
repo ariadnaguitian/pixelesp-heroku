@@ -1,0 +1,89 @@
+<ion-view title="PixelEsp" >
+<ion-nav-buttons>
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <!-- ======================
+  RIGHT SIDE BUTTON
+  ====================== -->
+
+  <ion-nav-buttons side="right">
+ <a href="#/app/crearnoticia" target="_self" button class="button button-icon icon ion-chatbox"><div class="badge badge-assertive">5</div></button></a>
+    <a href="#/app/creartrabajo" target="_self" button class="button button-icon icon ion-compose"> Crear trabajo</button></a>
+  </ion-nav-buttons>
+  
+  <!-- ======================
+  MAIN CONTENT SECTION
+  ====================== -->
+  <ion-content class="has-header gem-ion-content" >
+
+   <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="Query" >
+      </label>
+    </div> 
+
+
+    <!-- Media section (Picture, Video, Map, etc) -->
+<!-- End Media section --> 
+
+    <!-- News Item (With Poster and content text summary) -->
+        <ion-list>
+      <ion-item ng-repeat="trabajo in trabajos" class="item item-avatar">
+    
+      <!-- Poster Thumb -->
+   
+        <img src="img/trabajo.png" alt="" class="img">
+   
+      <!-- End Poster -->
+
+      <!-- Content -->
+
+      <div class="news-content">
+        <h2>{{trabajo.Titulo}}</h2>
+                   <h4>
+          Por <a href="#" >Administrador</a> - <i class="icon ion-clock"></i> {{trabajo.created_at}}</h4>
+
+       <p>{{trabajo.Descripcion}}</p>
+
+
+        <!-- Stat Section -->
+        <div class="other-stats" >
+                <div class="news-more-action">
+        <i class="icon ion-more"></i>
+
+      
+
+</div>
+
+
+<div class="floatright">
+      <h4 class="item-note"><i class="ion-chatbox"></i> 82 -  <i class="ion-android-done-all"></i> 90 vistos -  <i class="ion-android-share-alt"></i></h4></div>
+<div class="floatleft">
+ 
+        </div>
+        
+
+        </div> 
+     </div>
+     <div class="floatright">
+     <button class="button button-balanced button-borderless button-small"><i class="ion-tshirt"></i> Aplicar</button> 
+      <!-- End Content --></div>
+
+
+      <!-- Mock trigger button for action sheet for this post -->
+    
+      <!-- End Button -->
+
+   
+     </ion-item>
+    </ion-list>
+
+
+    <!-- End News Item -->
+
+    <!-- News Item (For Album Art, Artist Name and Player) -->
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,30 @@
+<ion-view view-title="Editar imagen">
+  <ion-content>
+  	<div class="card">
+		<div class="item item-text-wrap">
+						    <img ng-src="img/imagenes/{{imagen.Imagen}}" class="fullscreen-image" />
+    </div>
+			<div class="list">
+			  <label class="item item-input  item-stacked-label">
+			   <span class="input-label">Titulo</span>
+			    <input type="text" placeholder="Nombre" ng-model="imagen.Titulo">
+			  </label>
+			  <label class="item item-input  item-stacked-label">
+			   <span class="input-label">Descripcion</span>
+			    <input type="text" placeholder="E-Mail" ng-model="imagen.Descripcion">
+			  </label>			
+			<label class="item item-input  item-stacked-label">
+			 <span class="input-label">Fecha de creación</span>
+			    <input type="text" placeholder="Ciudad" ng-model="imagen.created_at">
+			  </label>			
+			</div>
+			<button ng-click="doSave()" class="button button-energized">
+			  Modificar
+			</button>
+			<button ng-click="doDelete()" class="button button-assertive">
+			  Borrar
+			</button>
+		</div>
+	</div>
+  </ion-content>
+</ion-view>
