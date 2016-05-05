@@ -241,7 +241,7 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('NoticiaslistsCtrl', function($rootScope, $scope, $http, $location) {
+.controller('NoticiaslistsCtrl', function($rootScope, $scope, $http, $location, $ionicPopover) {
     
 
 
@@ -255,6 +255,8 @@ angular.module('starter.controllers', [])
       // err.status will contain the status code
     });
   });
+
+   
 
 
 
@@ -303,7 +305,7 @@ angular.module('starter.controllers', [])
  })
 
 
-.controller('NoticiasCtrl', function($scope, $http, $location) {
+.controller('NoticiasCtrl', function($scope, $http, $location, $ionicPopover, $timeout) {
 
 
   $scope.noticias = [];
@@ -319,6 +321,21 @@ angular.module('starter.controllers', [])
 
   });
 
+  
+    $scope.doRefresh = function() {
+    
+    console.log('Refreshing!');
+    $timeout( function() {
+      //simulate async response
+      
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    
+    }, 1000);
+      
+  };
+
       $scope.imagenes = [];
    $scope.$on('$ionicView.beforeEnter', function() {
     
@@ -331,6 +348,19 @@ angular.module('starter.controllers', [])
     });
 
   });
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+    scope: $scope,
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+  $scope.demo = 'ios';
+  $scope.setPlatform = function(p) {
+    document.body.classList.remove('platform-ios');
+    document.body.classList.remove('platform-android');
+    document.body.classList.add('platform-' + p);
+    $scope.demo = p;
+  }
 
 })
 
@@ -508,7 +538,7 @@ angular.module('starter.controllers', [])
  })
 
 
-.controller('TrabajosCtrl', function($scope, $http, $location) {
+.controller('TrabajosCtrl', function($scope, $http, $location, $ionicPopover, $timeout) {
 
 
   $scope.trabajos = [];
@@ -522,7 +552,37 @@ angular.module('starter.controllers', [])
       // err.status will contain the status code
     });
 
+  }); 
+
+    $scope.doRefresh = function() {
+    
+    console.log('Refreshing!');
+    $timeout( function() {
+      //simulate async response
+      
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    
+    }, 1000);
+      
+  };
+
+
+
+   $ionicPopover.fromTemplateUrl('templates/popover.html', {
+    scope: $scope,
+  }).then(function(popover) {
+    $scope.popover = popover;
   });
+
+  $scope.demo = 'ios';
+  $scope.setPlatform = function(p) {
+    document.body.classList.remove('platform-ios');
+    document.body.classList.remove('platform-android');
+    document.body.classList.add('platform-' + p);
+    $scope.demo = p;
+  }
 
 })
 
@@ -549,6 +609,7 @@ angular.module('starter.controllers', [])
       // err.status will contain the status code
     });
     };
+   
   
 })
 
@@ -602,7 +663,7 @@ angular.module('starter.controllers', [])
     };
   })
 
-.controller('imagenesCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, $http, $location) {
+.controller('imagenesCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, $http, $location, $timeout) {
 
 
        $scope.imagenes = [];
@@ -617,6 +678,20 @@ angular.module('starter.controllers', [])
     });
 
   });
+
+     $scope.doRefresh = function() {
+    
+    console.log('Refreshing!');
+    $timeout( function() {
+      //simulate async response
+      
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    
+    }, 1000);
+      
+  };
 
 
     $ionicModal.fromTemplateUrl('image-modal.html', {

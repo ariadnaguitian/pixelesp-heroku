@@ -23,7 +23,9 @@
         <input type="text" placeholder="Search" ng-model="Query" >
       </label>
     </div> 
-
+ <ion-refresher on-refresh="doRefresh()">
+                     
+      </ion-refresher>
 
     <!-- Media section (Picture, Video, Map, etc) -->
 <!-- End Media section --> 
@@ -51,7 +53,10 @@
         <!-- Stat Section -->
         <div class="other-stats" >
                 <div class="news-more-action">
-        <i class="icon ion-more"></i>
+
+      <button class="button-icon ion-more" ng-click="popover.show($event)">
+        </button>
+
 
       
 
@@ -87,3 +92,26 @@
 
   </ion-content>
 </ion-view>
+<script id="templates/popover.html" type="text/ng-template">
+    <ion-popover-view>
+      <ion-content>
+        <div class="list">
+          <a class="item" href="http://learn.ionicframework.com/" target="_blank">
+              Learn Ionic
+            </a>
+          <a class="item" href="http://ionicframework.com/docs/" target="_blank">
+              Documentation
+            </a>
+          <a class="item" href="http://showcase.ionicframework.com/" target="_blank">
+              Showcase
+            </a>
+          <a class="item" href="http://ionicframework.com/submit-issue/" target="_blank">
+              Submit an Issue
+            </a>
+          <a class="item" href="https://github.com/driftyco/ionic" target="_blank">
+              Github Repo
+            </a>
+        </div>
+      </ion-content>
+    </ion-popover-view>
+  </script>
