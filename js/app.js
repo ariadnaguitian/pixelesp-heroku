@@ -8,7 +8,7 @@
 
 
 
-angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper', 'ionic-ratings',])
+angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper', 'ionic-ratings','ngMessages'])
 
 .run(function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
@@ -28,7 +28,9 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
             });
         })
 
-
+.constant('CONFIG', {
+  APIURL: "http://pixelesp-api.herokuapp.com/",
+})
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -40,11 +42,11 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
 
     })
 
-        .state('tabs', {
-    url: '/tabs',
-    abstract: true,
-    templateUrl: 'templates/social/tabs.html'
-  })
+    .state('tabs', {
+      url: '/tabs',
+      abstract: true,
+      templateUrl: 'templates/social/tabs.html'
+    })
 
     .state('app.feed', {
       url: "/feed",
@@ -443,14 +445,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
  }
  })
  
-   .state('app.msg', {
-      url: "/msg",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/social/mensajes.html",
-        }
-      }
-    })
+
 
    ;
  

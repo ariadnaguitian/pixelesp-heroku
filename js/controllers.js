@@ -1,8 +1,6 @@
 angular.module('starter.controllers', [])
 
- 
-
-
+ //nUEVA Juanda 
 
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
@@ -76,7 +74,7 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('EntrarCtrl', function($rootScope, $scope, $stateParams, $http, $ionicPopup, $location ) {
+.controller('EntrarCtrl', function($rootScope, $scope, $stateParams, $http, $ionicPopup, $location, CONFIG ) {
   
     $rootScope.userToken = ''; 
         $scope.user={};
@@ -107,7 +105,21 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('EntrarAdminCtrl', function($rootScope, $scope, $stateParams, $http, $ionicPopup, $location ) {
+.controller('TabController', function(){
+    this.tab = 1;
+
+    this.setTab = function(selectedTab){
+      this.tab = selectedTab;
+    };
+
+    this.isSet = function(givenTab){
+      return this.tab === givenTab;
+    };
+  })
+
+
+
+.controller('EntrarAdminCtrl', function($rootScope, $scope, $stateParams, $http, $ionicPopup, $location, CONFIG ) {
   
     $rootScope.userToken = ''; 
         $scope.user={};
@@ -116,7 +128,7 @@ angular.module('starter.controllers', [])
         
   
    $scope.doLogin = function() {
-      $http.post('http://pixelesp-api.herokuapp.com/login',$scope.user).then(function(resp) {
+      $http.post(CONFIG.APIURL+'login',$scope.user).then(function(resp) {
         console.log(resp.data);
 
          $rootScope.userToken = resp.data.token;
@@ -216,11 +228,11 @@ angular.module('starter.controllers', [])
 
 .controller('UsuarioNuevoCtrl', function($scope, $stateParams, $http, $ionicPopup, $location ) {
             
-        $scope.usuario={};
-        $scope.usuario.password='';
-        $scope.usuario.name='';
-        $scope.usuario.email='';
-        $scope.usuario.id =''; 
+  $scope.usuario={};
+  $scope.usuario.password='';
+  $scope.usuario.name='';
+  $scope.usuario.email='';
+  $scope.usuario.id =''; 
   
    $scope.doRegister = function() {
       $http.post('http://pixelesp-api.herokuapp.com/usuarios',$scope.usuario ).then(function(resp) {
@@ -241,13 +253,13 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('NoticiaslistsCtrl', function($rootScope, $scope, $http, $location, $ionicPopover) {
+.controller('NoticiaslistsCtrl', function($rootScope, $scope, $http, $location, CONFIG) {
     
 
 
   $scope.noticias = [];
    $scope.$on('$ionicView.beforeEnter', function() {
-    $http.get('http://pixelesp-api.herokuapp.com/noticias').then(function(resp) {
+    $http.get(CONFIG.APIURL+'noticias').then(function(resp){  
       $scope.noticias = resp.data.data;
       console.log('Succes', resp.data.data);
     }, function(err) {
@@ -255,8 +267,6 @@ angular.module('starter.controllers', [])
       // err.status will contain the status code
     });
   });
-
-   
 
 
 
@@ -305,13 +315,13 @@ angular.module('starter.controllers', [])
  })
 
 
-.controller('NoticiasCtrl', function($scope, $http, $location, $ionicPopover, $timeout) {
+.controller('NoticiasCtrl', function($scope, $http, $state,CONFIG,$ionicModal, $rootScope) {
 
 
   $scope.noticias = [];
-   $scope.$on('$ionicView.beforeEnter', function() {
-    
-    $http.get('http://pixelesp-api.herokuapp.com/noticias').then(function(resp) {
+  $scope.$on('$ionicView.beforeEnter', function() {
+  
+    $http.get(CONFIG.APIURL+'noticias').then(function(resp) {
       $scope.noticias = resp.data.data;
 
     }, function(err) {
@@ -321,8 +331,20 @@ angular.module('starter.controllers', [])
 
   });
 
-  
-    $scope.doRefresh = function() {
+  $scope.imagenes = [];
+  $scope.$on('$ionicView.beforeEnter', function() {
+    
+    $http.get(CONFIG.APIURL+'imagenes').then(function(resp) {
+      $scope.imagenes = resp.data.data;
+
+    }, function(err) {
+      console.error('ERR', err);
+      // err.status will contain the status code
+    });
+
+  });
+
+  $scope.doRefresh = function() {
     
     console.log('Refreshing!');
     $timeout( function() {
@@ -336,31 +358,48 @@ angular.module('starter.controllers', [])
       
   };
 
-      $scope.imagenes = [];
-   $scope.$on('$ionicView.beforeEnter', function() {
-    
-    $http.get('http://pixelesp-api.herokuapp.com/imagenes').then(function(resp) {
-      $scope.imagenes = resp.data.data;
+  $scope.abrirComentarios = function  (noticia) {
+    var viewNoticia = noticia;
+    $scope.viewNoticia = viewNoticia;
+    $scope.newCommentario = {text:''};
+    $scope.modal.show();
+  }
+  $scope.guardarComentario = function  (newCommentarioForm) {
+
+    $http.get('http://pixelesp-api.herokuapp.com/me', {headers: {'auth-token': $rootScope.userToken}}).then(function(resp) {
+        console.log(newCommentarioForm);
+        console.log(resp);
+        var newCommentario = {
+          idusuario : resp.data.data.id,
+          id_noticia : $scope.viewNoticia.id,
+          text : newCommentarioForm.text,
+        };
+        $http.post(CONFIG.APIURL+'newscomments',newCommentario ).then(function(resp) {
+          console.log(resp.data);
+
+           $state.go($state.current, {}, {reload: true});
+           $scope.modal.hide();
+           $scope.viewNoticia = {};
+           $scope.newCommentario = {text:''};
+        }, function(err) {
+          console.error('ERR', err);
+          // err.status will contain the status code
+        });
+
 
     }, function(err) {
       console.error('ERR', err);
-      // err.status will contain the status code
-    });
-
-  });
-    $ionicPopover.fromTemplateUrl('templates/popover.html', {
-    scope: $scope,
-  }).then(function(popover) {
-    $scope.popover = popover;
-  });
-
-  $scope.demo = 'ios';
-  $scope.setPlatform = function(p) {
-    document.body.classList.remove('platform-ios');
-    document.body.classList.remove('platform-android');
-    document.body.classList.add('platform-' + p);
-    $scope.demo = p;
+     
+    }); 
+    // $scope.viewNoticia = viewNoticia;
+    // $scope.modal.show();
   }
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope,
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
 })
 
@@ -372,7 +411,7 @@ angular.module('starter.controllers', [])
         $scope.noticia.id =''; 
   
    $scope.doRegister = function() {
-      $http.post('http://pixelesp-api.herokuapp.com/noticias',$scope.noticia ).then(function(resp) {
+    $http.post('http://pixelesp-api.herokuapp.com/noticias',$scope.noticia ).then(function(resp) {
         console.log(resp.data);
          var alertPopup = $ionicPopup.alert({
              title: 'Noticia creada con exito',
@@ -417,17 +456,16 @@ angular.module('starter.controllers', [])
 })
 .controller('imagenlistsCtrl', function($rootScope, $scope, $http, $location) {
     
-
-
   $scope.imagen = [];
-   $scope.$on('$ionicView.beforeEnter', function() {
-    $http.get('http://pixelesp-api.herokuapp.com/imagenes').then(function(resp) {
-      $scope.imagen = resp.data.data;
-      console.log('Succes', resp.data.data);
-    }, function(err) {
-      console.error('', err);
-      // err.status will contain the status code
-    });
+  
+  $scope.$on('$ionicView.beforeEnter', function() {
+      $http.get('http://pixelesp-api.herokuapp.com/imagenes').then(function(resp) {
+        $scope.imagen = resp.data.data;
+        console.log('Succes', resp.data.data);
+      }, function(err) {
+        console.error('', err);
+        // err.status will contain the status code
+      });
   });
 
 })
@@ -538,7 +576,9 @@ angular.module('starter.controllers', [])
  })
 
 
+
 .controller('TrabajosCtrl', function($scope, $http, $location, $ionicPopover, $timeout) {
+
 
 
   $scope.trabajos = [];
@@ -553,6 +593,7 @@ angular.module('starter.controllers', [])
     });
 
   }); 
+
 
     $scope.doRefresh = function() {
     
@@ -609,7 +650,6 @@ angular.module('starter.controllers', [])
       // err.status will contain the status code
     });
     };
-   
   
 })
 
@@ -651,104 +691,42 @@ angular.module('starter.controllers', [])
 
  })
 
-.controller('TabController', function(){
-    this.tab = 1;
+.controller('imagenesCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, $http, $location) {
 
-    this.setTab = function(selectedTab){
-      this.tab = selectedTab;
-    };
+    $scope.imagenes = [];
 
-    this.isSet = function(givenTab){
-      return this.tab === givenTab;
-    };
-  })
-
-.controller('imagenesCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, $http, $location, $timeout) {
-
-
-       $scope.imagenes = [];
-   $scope.$on('$ionicView.beforeEnter', function() {
-    
-    $http.get('http://pixelesp-api.herokuapp.com/imagenes').then(function(resp) {
-      $scope.imagenes = resp.data.data;
-
-    }, function(err) {
-      console.error('ERR', err);
-      // err.status will contain the status code
-    });
-
-  });
-
-     $scope.doRefresh = function() {
-    
-    console.log('Refreshing!');
-    $timeout( function() {
-      //simulate async response
+    $scope.$on('$ionicView.beforeEnter', function() {
       
+      $http.get('http://pixelesp-api.herokuapp.com/imagenes').then(function(resp) {
+        $scope.imagenes = resp.data.data;
+        //$scope.imgLoadedCallback();
 
-      //Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
-    
-    }, 1000);
-      
-  };
+      }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+      });
 
-
-    $ionicModal.fromTemplateUrl('image-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-
-    $scope.openModal = function() {
-      $ionicSlideBoxDelegate.slide(0);
-      $scope.modal.show();
-    };
-
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-
-    // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('modal.hide', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('modal.removed', function() {
-      // Execute action
-    });
-    $scope.$on('modal.shown', function() {
-      console.log('Modal is shown!');
     });
 
     // Call this functions if you need to manually control the slides
     $scope.next = function() {
       $ionicSlideBoxDelegate.next();
     };
-  
+
     $scope.previous = function() {
       $ionicSlideBoxDelegate.previous();
     };
-  
+
     $scope.goToSlide = function(index) {
       $scope.modal.show();
       $ionicSlideBoxDelegate.slide(index);
-    }
-  
+    };
+
     // Called each time the slide changes
     $scope.slideChanged = function(index) {
       $scope.slideIndex = index;
     };
+
+  
   }
-
-)
-
-
-;
-
-
+);

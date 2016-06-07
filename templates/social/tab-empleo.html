@@ -6,33 +6,29 @@
   <!-- ======================
   RIGHT SIDE BUTTON
   ====================== -->
-
   <ion-nav-buttons side="right">
- <a href="#/app/crearnoticia" target="_self" button class="button button-icon icon ion-chatbox"><div class="badge badge-assertive">5</div></button></a>
     <a href="#/app/creartrabajo" target="_self" button class="button button-icon icon ion-compose"> Crear trabajo</button></a>
   </ion-nav-buttons>
-  
+
   <!-- ======================
   MAIN CONTENT SECTION
   ====================== -->
   <ion-content class="has-header gem-ion-content" >
 
-   <div class="item item-input-inset">
-      <label class="item-input-wrapper">
+   <div class="list list-inset">
+      <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
         <input type="text" placeholder="Search" ng-model="Query" >
       </label>
     </div> 
- <ion-refresher on-refresh="doRefresh()">
-                     
-      </ion-refresher>
+
 
     <!-- Media section (Picture, Video, Map, etc) -->
 <!-- End Media section --> 
 
     <!-- News Item (With Poster and content text summary) -->
         <ion-list>
-      <ion-item ng-repeat="trabajo in trabajos" class="item item-avatar">
+      <ion-item ng-repeat="trabajo in trabajos | filter:Query" class="item item-avatar">
     
       <!-- Poster Thumb -->
    
@@ -53,10 +49,7 @@
         <!-- Stat Section -->
         <div class="other-stats" >
                 <div class="news-more-action">
-
-      <button class="button-icon ion-more" ng-click="popover.show($event)">
-        </button>
-
+        <i class="icon ion-more"></i>
 
       
 
@@ -92,26 +85,3 @@
 
   </ion-content>
 </ion-view>
-<script id="templates/popover.html" type="text/ng-template">
-    <ion-popover-view>
-      <ion-content>
-        <div class="list">
-          <a class="item" href="http://learn.ionicframework.com/" target="_blank">
-              Learn Ionic
-            </a>
-          <a class="item" href="http://ionicframework.com/docs/" target="_blank">
-              Documentation
-            </a>
-          <a class="item" href="http://showcase.ionicframework.com/" target="_blank">
-              Showcase
-            </a>
-          <a class="item" href="http://ionicframework.com/submit-issue/" target="_blank">
-              Submit an Issue
-            </a>
-          <a class="item" href="https://github.com/driftyco/ionic" target="_blank">
-              Github Repo
-            </a>
-        </div>
-      </ion-content>
-    </ion-popover-view>
-  </script>
