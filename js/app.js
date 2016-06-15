@@ -8,7 +8,9 @@
 
 
 
-angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper', 'ionic-ratings','ngMessages'])
+angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper', 'ionic-ratings','ngMessages' ])
+
+
 
 .run(function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
@@ -29,6 +31,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
         })
 
 .constant('CONFIG', {
+  // APIURL: ,"http://localhost/pixelsApp/api/index.php/"
   APIURL: "http://pixelesp-api.herokuapp.com/",
 })
 .config(function($stateProvider, $urlRouterProvider) {
