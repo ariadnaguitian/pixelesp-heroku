@@ -234,7 +234,7 @@ angular.module('starter.controllers', [])
             
   $scope.usuario={};
   $scope.usuario.password='';
-  $scope.usuario.name='';
+ 
   $scope.usuario.username='';
   $scope.usuario.email='';
   $scope.usuario.id =''; 
