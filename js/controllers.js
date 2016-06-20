@@ -421,9 +421,9 @@ angular.module('starter.controllers', [])
 
         $scope.noticia.idusuario = resp.data.data.id;
 
-        $http.post('http://pixelesp-api.herokuapp.com/noticias',$scope.noticia ).then(function(resp) {
-            console.log(resp.data);
-             var alertPopup = $ionicPopup.alert({
+        $http.post('http://pixelesp-api.herokuapp.com/noticias',$scope.noticia).then(function(resp) {
+              console.log(resp.data);
+              var alertPopup = $ionicPopup.alert({
                  title: 'Noticia creada con exito',
                  template: 'OK'
                });
@@ -435,13 +435,13 @@ angular.module('starter.controllers', [])
           console.error('ERR', err);
           // err.status will contain the status code
         });
-        };
 
 
     }, function(err) {
       console.error('ERR', err);
      
     }); 
+          // };
   
 })
 
