@@ -441,7 +441,7 @@ angular.module('starter.controllers', [])
       console.error('ERR', err);
      
     }); 
-          // };
+  };
   
 })
 
