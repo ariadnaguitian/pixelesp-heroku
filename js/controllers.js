@@ -404,7 +404,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('NoticiaNuevaCtrl', function($scope, $stateParams, $http, $ionicPopup, $location ) {
+.controller('NoticiaNuevaCtrl', function($scope, $stateParams, $http, $ionicPopup, $location,$rootScope ) {
             
         $scope.noticia={};
         $scope.noticia.Titulo='';
