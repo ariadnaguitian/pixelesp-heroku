@@ -8,7 +8,7 @@
 
 
 
-angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper', 'ionic-ratings','ngMessages' ])
+angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper', 'ionic-ratings','ngMessages'])
 
 
 
@@ -212,7 +212,18 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
  }
  }
  })
- 
+  .state('app.imagenes', {
+ url: '/imagenes',
+ views: {
+        'menuContent' :{
+     templateUrl: 'templates/social/imagenes.html',
+     controller:'imagenlistsCtrl'
+      
+       
+
+ }
+ }
+ })
  .state('app.galeria', {
  url: '/galeria',
  views: {
@@ -299,6 +310,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
  }
  }
  })
+
+
 
  .state('app.usuarios', {
  url: '/usuarios',
@@ -447,13 +460,49 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
  }
  }
  })
- 
+  .state('app.miperfil', {
+ url: '/miperfil',
+ views: {
+        'menuContent' :{
+     templateUrl: 'templates/social/miperfil.html',
+     controller:'MiperfilCtrl'
+       
 
+ }
+ }
+ })
+   .state('app.editar', {
+      url: "/usuario/:UsuarioId",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/social/editarperfil.html",
+              controller:  'UsuarioCtrl'
+        }
+      }
+    })
+
+   .state('app.msg', {
+      url: "/msg",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/social/mensajes.html",
+        }
+      }
+    })
+   .state('app.enviarmensaje', {
+      url: "/mensajeprivado",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/social/mensajeprivado.html",
+        }
+      }
+    })
+   
 
    ;
  
    
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/start');
-});
+})
 
