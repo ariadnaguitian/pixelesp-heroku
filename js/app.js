@@ -201,16 +201,13 @@ angular.module('starter', ['ionic', 'starter.controllers','ngPackery','ksSwiper'
  // Each tab has its own nav history stack:
 
  .state('app.inicio', {
- url: '/inicio',
- views: {
-        'menuContent' :{
-     templateUrl: 'templates/social/tab-inicio.html',
-     controller: 'NoticiasCtrl',
-       
-       
-
- }
- }
+   url: '/inicio',
+   views: {
+      'menuContent' :{
+         templateUrl: 'templates/social/tab-inicio.html',
+         controller: 'NoticiasCtrl',
+      }
+   }
  })
   .state('app.imagenes', {
  url: '/imagenes',

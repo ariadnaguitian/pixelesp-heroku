@@ -804,7 +804,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.goToSlide = function(index) {
-      $scope.modal.show();
+      // $scope.modal.show();
       $ionicSlideBoxDelegate.slide(index);
     };
 
